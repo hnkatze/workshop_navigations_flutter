@@ -54,9 +54,9 @@ class HomeScreen extends StatelessWidget {
         ),
         body: const TabBarView(
           children: [
-            Center(child: TabImage(title: 'Tab 1')),
-            Center(child: TabImage(title: 'Tab 2')),
-            Center(child: TabImage(title: 'Tab 3')),
+            Center(child: TabImage(title: 'Tab 1', tabIndex: 0)),
+            Center(child: TabImage(title: 'Tab 2', tabIndex: 1)),
+            Center(child: TabImage(title: 'Tab 3', tabIndex: 2)),
           ],
         ),
       ),

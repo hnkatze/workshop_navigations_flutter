@@ -6,22 +6,21 @@ class ImageProviderModel with ChangeNotifier {
     'https://images5.alphacoders.com/134/thumb-1920-1345309.jpeg',
     'https://images5.alphacoders.com/481/thumb-1920-481903.png',
   ];
-  List<int> _imageNumbers = [];
-  int _selectedImageNumber = 1;
 
-  void setImages(List<String> imageUrls, List<int> imageNumbers) {
+  int _selectedImageNumber = 0;
+
+  void setImages(List<String> imageUrls) {
     _imageUrls = imageUrls;
-    _imageNumbers = imageNumbers;
-    _selectedImageNumber = _imageNumbers.isNotEmpty ? _imageNumbers[0] : 1;
     notifyListeners();
   }
 
   String getImageUrlByNumber(int number) {
-    final index = _imageNumbers.indexOf(number);
-    if (index != -1 && index < _imageUrls.length) {
-      return _imageUrls[index];
+    // Verificación para evitar errores de índice
+    if (number >= 0 && number < _imageUrls.length) {
+      return _imageUrls[number];
     }
-    return 'https://images8.alphacoders.com/135/thumb-1920-1350086.jpeg'; // Retorna una cadena vacía si el número no es válido
+    // Retorna una imagen por defecto o un mensaje de error si el índice no es válido
+    return 'https://example.com/default-image.png';
   }
 
   int getImageCount() {
@@ -29,8 +28,12 @@ class ImageProviderModel with ChangeNotifier {
   }
 
   void updateSelectedImageNumber(int number) {
-    _selectedImageNumber = number;
-    notifyListeners();
+    if (number >= 0 && number < _imageUrls.length) {
+      _selectedImageNumber = number;
+      notifyListeners();
+    } else {
+      print('Índice fuera de rango: $number');
+    }
   }
 
   String get selectedImageUrl => getImageUrlByNumber(_selectedImageNumber);
