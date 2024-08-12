@@ -1,11 +1,16 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workshop_navigations/providers/image_providers.dart';
 
 class ViewImage extends StatelessWidget {
   const ViewImage({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final imageProvider = Provider.of<ImageProviderModel>(context);
+    final imageUrls = imageProvider.imageUrls;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -17,17 +22,22 @@ class ViewImage extends StatelessWidget {
           title: const Text('View Image'),
         ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('View Image'),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Back'),
-              ),
-            ],
+          child: SizedBox(
+            width: double.infinity,
+            height: 300,
+            child: Swiper(
+              itemBuilder: (BuildContext context, int index) {
+                return Image.network(
+                  imageUrls[index],
+                  fit: BoxFit.fill,
+                );
+              },
+              itemCount: 3,
+              viewportFraction: 0.8,
+              scale: 0.9,
+              pagination: const SwiperPagination(),
+              control: const SwiperControl(),
+            ),
           ),
         ),
       ),

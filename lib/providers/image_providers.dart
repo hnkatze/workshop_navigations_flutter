@@ -9,6 +9,7 @@ class ImageProviderModel with ChangeNotifier {
 
   int _selectedImageNumber = 0;
 
+  get imageUrls => _imageUrls;
   void setImages(List<String> imageUrls) {
     _imageUrls = imageUrls;
     notifyListeners();

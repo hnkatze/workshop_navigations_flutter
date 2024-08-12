@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:workshop_navigations/components/drawer_component.dart';
 import 'package:workshop_navigations/components/image_tab.dart';
-import 'package:workshop_navigations/screens/view_image.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,38 +20,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text('Drawer Header'),
-              ),
-              ListTile(
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.pop(context); // Cierra el drawer
-                  Navigator.pushReplacementNamed(
-                      context, '/'); // Cambia a la página principal
-                },
-              ),
-              ListTile(
-                title: const Text('Second Screen'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ViewImage(),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+        drawer: const DrawerComponent(),
         body: const TabBarView(
           children: [
             Center(child: TabImage(title: 'Tab 1', tabIndex: 0)),
